@@ -7,8 +7,8 @@
 
 <style>
 body{
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#ff4d6d,#ff758f,#ff8fa3);
+font-family: Arial;
+background: linear-gradient(135deg,#ff4d6d,#ff758f);
 margin:0;
 display:flex;
 justify-content:center;
@@ -18,40 +18,31 @@ color:white;
 }
 
 .container{
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(10px);
-padding:30px;
+background: rgba(255,255,255,0.15);
+padding:25px;
 border-radius:20px;
 width:90%;
 max-width:500px;
-text-align:center;
 }
 
 input,select,textarea{
 width:100%;
-padding:12px;
+padding:10px;
 margin-top:10px;
 border:none;
 border-radius:10px;
 }
 
 button{
-margin-top:20px;
-padding:12px 20px;
+margin-top:15px;
+padding:10px;
+width:100%;
 border:none;
 border-radius:10px;
 background:white;
 color:#ff4d6d;
 font-weight:bold;
 cursor:pointer;
-}
-
-.question{
-display:none;
-}
-
-.active{
-display:block;
 }
 </style>
 </head>
@@ -60,86 +51,43 @@ display:block;
 
 <div class="container">
 
-<div class="question active">
-<h2>Hola yaquelin 😊</h2>
-<p>Quería conocerte un poco mejor.</p>
-<button onclick="next()">Comenzar</button>
-</div>
+<h2>Hola Jacqueline 😊</h2>
+<p>Me gustaría conocerte un poco más 💖</p>
 
-<div class="question">
-<h2>¿Cómo te llamas?</h2>
-<input type="text">
-<button onclick="next()">Siguiente</button>
-</div>
+<form action="https://formspree.io/f/mjgdjgkz" method="POST">
 
-<div class="question">
-<h2>¿Cuántos años tienes?</h2>
-<input type="number">
-<button onclick="next()">Siguiente</button>
-</div>
+<input name="nombre" placeholder="¿Cómo te llamas?" required>
 
-<div class="question">
-<h2>¿Cuál es tu película favorita?</h2>
-<input type="text">
-<button onclick="next()">Siguiente</button>
-</div>
+<input name="edad" placeholder="Edad" type="number">
 
-<div class="question">
-<h2>¿Cuál es tu comida favorita?</h2>
-<input type="text">
-<button onclick="next()">Siguiente</button>
-</div>
+<input name="pelicula" placeholder="Película favorita">
 
-<div class="question">
-<h2>¿Cuál es tu situación sentimental?</h2>
-<select>
+<input name="comida" placeholder="Comida favorita">
+
+<select name="estado">
 <option>Soltera</option>
 <option>En una relación</option>
 <option>Comprometida</option>
 <option>Casada</option>
 </select>
-<button onclick="next()">Siguiente</button>
-</div>
 
-<div class="question">
-<h2>¿Qué calificación me das del 1 al 10? (Opcional)</h2>
-<input type="number" min="1" max="10">
-<button onclick="next()">Siguiente</button>
-</div>
+<input name="calificacion" placeholder="¿Qué me das del 1 al 10? (opcional)">
 
-<div class="question">
-<h2>¿Te gustaría seguir hablando conmigo?</h2>
-<select>
+<select name="seguir">
 <option>Sí 😊</option>
 <option>Tal vez 🤔</option>
 <option>Necesito conocerte más 😅</option>
 </select>
-<button onclick="next()">Siguiente</button>
-</div>
 
-<div class="question">
-<h2>¿Quieres dejarme un mensaje?</h2>
-<textarea rows="4"></textarea>
-<button onclick="next()">Finalizar</button>
-</div>
+<textarea name="mensaje" placeholder="Mensaje opcional"></textarea>
 
-<div class="question">
-<h2>❤️ Gracias por responder ❤️</h2>
-<p>Me encantó conocerte un poco más yaquelin.</p>
-</div>
+<button type="submit">Enviar</button>
+
+</form>
+
+<p>Jacqueline, me gustó conocerte 💖</p>
 
 </div>
-
-<script>
-let current=0;
-const questions=document.querySelectorAll('.question');
-
-function next(){
-questions[current].classList.remove('active');
-current++;
-questions[current].classList.add('active');
-}
-</script>
 
 </body>
 </html>
