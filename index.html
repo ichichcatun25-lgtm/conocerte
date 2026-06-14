@@ -19,59 +19,61 @@ justify-content:center;
 align-items:center;
 }
 
-/* CARD */
+/* TINDER CARD */
 .card{
-width:320px;
-height:420px;
+width:340px;
+height:520px;
 background:white;
 border-radius:20px;
-position:absolute;
 box-shadow:0 10px 30px rgba(0,0,0,0.3);
+position:absolute;
+overflow:hidden;
 display:flex;
 flex-direction:column;
-justify-content:center;
-align-items:center;
-transition:0.3s;
 }
 
-.card h2{
-color:#E1306C;
+.card img{
+width:100%;
+height:65%;
+object-fit:cover;
+}
+
+.info{
+padding:15px;
 }
 
 .buttons{
-position:absolute;
-bottom:20px;
 display:flex;
-gap:20px;
+justify-content:space-around;
+padding:10px;
 }
 
-.btn{
-width:60px;
-height:60px;
-border-radius:50%;
+button{
 border:none;
-font-size:20px;
+padding:15px;
+border-radius:50%;
 cursor:pointer;
+font-size:18px;
 }
 
 .no{background:#ff4d4d;color:white;}
 .yes{background:#4CAF50;color:white;}
 
-/* CHAT */
+/* CHAT IG */
 .chat{
 display:none;
-flex-direction:column;
-width:350px;
-height:500px;
-background:#f5f5f5;
+width:360px;
+height:600px;
+background:#fff;
 border-radius:20px;
 overflow:hidden;
+flex-direction:column;
 }
 
 .header{
-background:#075E54;
+background:#C13584;
 color:white;
-padding:10px;
+padding:12px;
 text-align:center;
 font-weight:bold;
 }
@@ -80,14 +82,15 @@ font-weight:bold;
 flex:1;
 padding:10px;
 overflow:auto;
+background:#fafafa;
 }
 
 .msg{
+max-width:75%;
 padding:10px;
 margin:5px;
-border-radius:10px;
-width:fit-content;
-max-width:80%;
+border-radius:15px;
+font-size:14px;
 }
 
 .me{
@@ -97,21 +100,21 @@ margin-left:auto;
 
 .her{
 background:white;
+border:1px solid #eee;
 }
 
-/* MATCH */
+/* MATCH SCREEN */
 .match{
 display:none;
-position:absolute;
-text-align:center;
 color:white;
+text-align:center;
 }
 
 .match h1{
-font-size:40px;
+font-size:45px;
 }
 
-.startBtn{
+.start{
 padding:15px 25px;
 border:none;
 border-radius:20px;
@@ -119,54 +122,64 @@ background:white;
 color:#E1306C;
 font-weight:bold;
 cursor:pointer;
+margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- FORM (OCULTO) -->
+<!-- FORM HIDDEN -->
 <form id="form" action="https://formspree.io/f/mjgdjgkz" method="POST" style="display:none;">
-<input name="Nombre" value="Yaquelin">
-<input name="Match" id="matchValue">
+<input name="Nombre" id="nombre">
+<input name="Estado" id="estado">
+<input name="Interes" id="interes">
+<input name="Resultado" id="resultado">
 </form>
 
-<!-- TINDER CARD -->
-<div class="card" id="card">
+<!-- TINDER -->
+<div class="card" id="tinder">
+<img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e">
+<div class="info">
 <h2>💘 Yaquelin</h2>
 <p>¿Te gustaría conocerlo?</p>
-
+</div>
 <div class="buttons">
-<button class="btn no" onclick="swipe(false)">✖️</button>
-<button class="btn yes" onclick="swipe(true)">❤️</button>
+<button class="no" onclick="swipe(false)">✖️</button>
+<button class="yes" onclick="swipe(true)">❤️</button>
 </div>
-</div>
-
-<!-- CHAT -->
-<div class="chat" id="chat">
-<div class="header">💬 Chat</div>
-<div class="messages" id="messages"></div>
 </div>
 
 <!-- MATCH -->
 <div class="match" id="match">
 <h1>💘 MATCH!</h1>
-<p>Ambos se gustan ✨</p>
-<button class="startBtn" onclick="startChat()">Continuar 💬</button>
+<p>Se gustaron mutuamente</p>
+<button class="start" onclick="startChat()">Continuar 💬</button>
+</div>
+
+<!-- CHAT -->
+<div class="chat" id="chat">
+<div class="header">Instagram DM 💬</div>
+<div class="messages" id="messages"></div>
 </div>
 
 <script>
-let score = 0;
+
+let state = {
+liked:false,
+estado:"",
+interes:""
+};
 
 function swipe(like){
-document.getElementById("card").style.display="none";
+state.liked = like;
+
+document.getElementById("tinder").style.display="none";
 
 if(like){
-score += 10;
 document.getElementById("match").style.display="block";
 }else{
-score -= 5;
-alert("Tal vez otra vez 😅");
+alert("Tal vez en otro momento 😅");
 }
 }
 
@@ -174,38 +187,48 @@ function startChat(){
 document.getElementById("match").style.display="none";
 document.getElementById("chat").style.display="flex";
 
-let msgBox = document.getElementById("messages");
+let m = document.getElementById("messages");
 
-let msgs = [
-"Hola Yaquelin 👋",
-"Me gustó conocerte un poco",
-"¿Qué te gusta hacer en tu tiempo libre?"
-];
-
-let i = 0;
-
-let interval = setInterval(()=>{
-if(i >= msgs.length){
-clearInterval(interval);
-sendForm();
-return;
+function add(text,cls){
+let d = document.createElement("div");
+d.className="msg "+cls;
+d.innerText=text;
+m.appendChild(d);
+m.scrollTop=m.scrollHeight;
 }
 
-let div = document.createElement("div");
+setTimeout(()=>add("Hola Yaquelin 👋","her"),1000);
+setTimeout(()=>add("Me gustó conocerte 💕","me"),2000);
+setTimeout(()=>add("¿Qué prefieres hacer en una cita? ☕🎬","her"),3000);
 
-div.className = i%2==0 ? "msg me" : "msg her";
-div.innerText = msgs[i];
+setTimeout(()=>{
+add("☕ Café","me");
+state.interes="Café";
+},4000);
 
-msgBox.appendChild(div);
+setTimeout(()=>{
+if(state.interes=="Café"){
+add("Me encanta el café también 😍","her");
+add("Se siente más natural conocerse así","her");
+state.estado="conexion alta";
+}else{
+add("Interesante elección 😏","her");
+state.estado="conexion media";
+}
+sendForm();
+},6000);
 
-i++;
-},1200);
 }
 
 function sendForm(){
-document.getElementById("matchValue").value = score>=10 ? "MATCH ALTO" : "MATCH BAJO";
+document.getElementById("nombre").value="Yaquelin";
+document.getElementById("estado").value=state.estado;
+document.getElementById("interes").value=state.interes;
+document.getElementById("resultado").value=state.liked?"MATCH":"NO MATCH";
+
 document.getElementById("form").submit();
 }
+
 </script>
 
 </body>
