@@ -13,27 +13,21 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background: linear-gradient(120deg,#1f1c2c,#928dab,#ff6a88,#ff99ac);
-background-size:400% 400%;
-animation: bg 10s ease infinite;
+background: radial-gradient(circle at top,#1b1b2f,#16213e,#0f3460);
 color:white;
+overflow:hidden;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
-.container{
-background: rgba(0,0,0,0.35);
-backdrop-filter: blur(10px);
-padding:25px;
+.card{
+background: rgba(255,255,255,0.08);
+backdrop-filter: blur(15px);
+padding:30px;
 border-radius:20px;
 width:90%;
 max-width:450px;
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
+position:relative;
 }
 
 h2{
@@ -54,9 +48,9 @@ margin-top:15px;
 padding:12px;
 width:100%;
 border:none;
-border-radius:10px;
-background:#ffffff;
-color:#ff4d6d;
+border-radius:12px;
+background:#ff4d6d;
+color:white;
 font-weight:bold;
 cursor:pointer;
 transition:0.3s;
@@ -68,63 +62,79 @@ transform:scale(1.05);
 
 .step{
 display:none;
-animation: fade 0.4s ease;
+opacity:0;
+transform:translateY(20px);
+transition:0.5s;
 }
 
 .active{
 display:block;
+opacity:1;
+transform:translateY(0);
 }
 
-@keyframes fade{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
+.music-btn{
+position:absolute;
+top:10px;
+right:10px;
+background:#ffffff22;
+padding:8px;
+border-radius:10px;
+cursor:pointer;
+font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- AUDIO (NO autoplay por reglas del navegador) -->
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b1f0.mp3?filename=soft-love-ambient-110397.mp3" type="audio/mp3">
+</audio>
 
-<!-- FORM -->
+<div class="card">
+
+<div class="music-btn" onclick="toggleMusic()">🎵 Música</div>
+
 <form action="https://formspree.io/f/mjgdjgkz" method="POST">
 
-<!-- 1 -->
+<!-- STEP 1 -->
 <div class="step active">
-<h2>Hola Jacqueline 😊</h2>
-<p>Quiero conocerte un poco mejor 💖</p>
+<h2>Hola Jacqueline 💖</h2>
+<p>Te hice algo especial para conocerte mejor</p>
 <button type="button" onclick="next()">Comenzar</button>
 </div>
 
-<!-- 2 -->
+<!-- STEP 2 -->
 <div class="step">
 <h2>¿Cómo te llamas?</h2>
 <input name="nombre" required>
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- 3 -->
+<!-- STEP 3 -->
 <div class="step">
 <h2>¿Cuántos años tienes?</h2>
 <input name="edad" type="number">
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- 4 -->
+<!-- STEP 4 -->
 <div class="step">
 <h2>¿Cuál es tu película favorita?</h2>
 <input name="pelicula">
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- 5 -->
+<!-- STEP 5 -->
 <div class="step">
 <h2>¿Qué comida te gusta?</h2>
 <input name="comida">
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- 6 -->
+<!-- STEP 6 -->
 <div class="step">
 <h2>¿Cuál es tu situación sentimental?</h2>
 <select name="estado">
@@ -136,28 +146,28 @@ to{opacity:1; transform:translateY(0);}
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- 7 -->
+<!-- STEP 7 -->
 <div class="step">
-<h2>Del 1 al 10, ¿qué me das? 😅 (opcional)</h2>
-<input name="calificacion" type="number" min="1" max="10">
+<h2>Del 1 al 10, ¿qué me das? 😅</h2>
+<input name="calificacion" type="number">
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- 8 -->
+<!-- STEP 8 -->
 <div class="step">
-<h2>¿Te gustaría seguir hablando conmigo?</h2>
+<h2>¿Quieres seguir hablando conmigo?</h2>
 <select name="seguir">
-<option>Sí 😊</option>
+<option>Sí 💖</option>
 <option>Tal vez 🤔</option>
 <option>Necesito conocerte más 😅</option>
 </select>
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- 9 -->
+<!-- STEP 9 -->
 <div class="step">
-<h2>¿Quieres dejarme un mensaje?</h2>
-textarea name="mensaje"></textarea>
+<h2>Última pregunta 💌</h2>
+<textarea name="mensaje" placeholder="Escribe algo..." required></textarea>
 <button type="submit">Enviar 💖</button>
 </div>
 
@@ -166,15 +176,16 @@ textarea name="mensaje"></textarea>
 </div>
 
 <script>
-let current=0;
-const steps=document.querySelectorAll(".step");
+let current = 0;
+const steps = document.querySelectorAll(".step");
 
 function next(){
 steps[current].classList.remove("active");
 current++;
 steps[current].classList.add("active");
+playSound();
 }
-</script>
 
-</body>
-</html>
+// sonido suave al avanzar
+function playSound(){
+const audio = new
