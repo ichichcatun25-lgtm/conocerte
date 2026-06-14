@@ -16,218 +16,262 @@
 }
 
 body{
-  min-height:100vh;
+  height:100vh;
+  overflow:hidden;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
   background:linear-gradient(-45deg,#833AB4,#FD1D1D,#F77737,#405DE6);
   background-size:400% 400%;
   animation:move 12s ease infinite;
 }
 
+/* BACKGROUND ANIMATION */
 @keyframes move{
   0%{background-position:0% 50%;}
   50%{background-position:100% 50%;}
   100%{background-position:0% 50%;}
 }
 
-.container{
-  width:100%;
-  max-width:600px;
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(18px);
-  border-radius:30px;
-  padding:30px;
+/* HEARTS */
+.heart {
+  position:absolute;
   color:white;
-  box-shadow:0 10px 40px rgba(0,0,0,0.25);
+  font-size:18px;
+  animation:float 6s linear infinite;
+  opacity:0.6;
 }
 
-h1{
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* CONTAINER */
+.container{
+  width:90%;
+  max-width:500px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(20px);
+  border-radius:25px;
+  padding:25px;
+  color:white;
   text-align:center;
-  margin-bottom:10px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.3);
 }
 
-p{
-  font-size:14px;
-  opacity:0.95;
-  margin-bottom:10px;
-}
-
-.welcome{
-  text-align:center;
+/* PROGRESS */
+.progress{
+  width:100%;
+  height:8px;
+  background:rgba(255,255,255,0.3);
+  border-radius:10px;
   margin-bottom:20px;
+  overflow:hidden;
 }
 
-label{
+.bar{
+  height:100%;
+  width:0%;
+  background:white;
+  transition:0.3s;
+}
+
+/* QUESTIONS */
+.question{
+  display:none;
+}
+
+.question.active{
   display:block;
-  margin-top:15px;
-  margin-bottom:6px;
-  font-weight:600;
 }
 
+/* INPUT */
 input, select, textarea{
   width:100%;
   padding:12px;
   border:none;
   border-radius:12px;
+  margin-top:10px;
   outline:none;
   font-size:14px;
 }
 
-textarea{
-  resize:none;
-}
-
-button{
+/* BUTTONS */
+.btn{
+  margin-top:15px;
+  padding:12px;
   width:100%;
-  margin-top:20px;
-  padding:14px;
   border:none;
   border-radius:15px;
   background:white;
   color:#E1306C;
-  font-size:16px;
   font-weight:700;
   cursor:pointer;
-  transition:0.3s;
 }
 
-button:hover{
-  transform:scale(1.03);
+/* OPTIONS */
+.option{
+  background:rgba(255,255,255,0.2);
+  padding:10px;
+  margin:8px 0;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.2s;
 }
 
-.section-title{
-  margin-top:20px;
-  font-weight:700;
-  font-size:16px;
-  color:#fff;
-  border-left:4px solid white;
-  padding-left:10px;
+.option:hover{
+  background:white;
+  color:#E1306C;
 }
 
-.footer{
-  text-align:center;
-  margin-top:15px;
-  font-size:12px;
-  opacity:0.8;
+/* TITLE */
+h2{
+  margin-bottom:10px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- MUSIC -->
+<audio id="music" autoplay loop>
+  <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-piano-123.mp3" type="audio/mp3">
+</audio>
+
+<!-- FORM -->
+<form id="form" action="https://formspree.io/f/mjgdjgkz" method="POST">
+
 <div class="container">
 
-<!-- SONIDO -->
-<audio id="sound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+<div class="progress"><div class="bar" id="bar"></div></div>
 
-<div class="welcome">
-<h1>✨ Hola, Yaquelin 💕</h1>
-<p>Bienvenida a esta pequeña encuesta hecha solo para conocerte un poquito más.</p>
-<p>No es nada serio, solo algo divertido y diferente ✨</p>
-<p>Gracias por estar aquí 💌</p>
+<!-- 1 -->
+<div class="question active">
+  <h2>✨ Hola, Yaquelin 💕</h2>
+  <p>Bienvenida a esta pequeña encuesta para conocerte mejor</p>
+  <button type="button" class="btn" onclick="next()">Comenzar</button>
 </div>
 
-<form action="https://formspree.io/f/mjgdjgkz" method="POST">
+<!-- 2 -->
+<div class="question">
+  <h2>¿Cómo te llamas?</h2>
+  <input name="Nombre" required>
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<!-- SOBRE ELLA -->
-<div class="section-title">🌸 Sobre ti</div>
+<!-- 3 -->
+<div class="question">
+  <h2>¿Cuántos años tienes?</h2>
+  <input name="Edad" type="number" required>
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<label>¿Cómo te llamas?</label>
-<input type="text" name="Nombre" required>
+<!-- 4 -->
+<div class="question">
+  <h2>Estado sentimental</h2>
 
-<label>¿Cuántos años tienes?</label>
-<input type="number" name="Edad" required>
+  <div class="option" onclick="selectOption(this,'Estado sentimental','Soltera')">Soltera</div>
+  <div class="option" onclick="selectOption(this,'Estado sentimental','En una relación')">En una relación</div>
+  <div class="option" onclick="selectOption(this,'Estado sentimental','Complicado')">Es complicado</div>
 
-<label>¿Cuál es tu estado sentimental?</label>
-<select name="Estado sentimental">
-  <option>Soltera</option>
-  <option>En una relación</option>
-  <option>Comprometida</option>
-  <option>Casada</option>
-  <option>Divorciada</option>
-  <option>Es complicado</option>
-</select>
+  <input type="hidden" name="Estado sentimental">
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<!-- PERSONALIDAD -->
-<div class="section-title">🌷 Personalidad</div>
+<!-- 5 -->
+<div class="question">
+  <h2>¿Cómo te has sentido últimamente?</h2>
 
-<label>¿Cómo te has sentido últimamente?</label>
-<select name="Estado emocional">
-  <option>Muy feliz</option>
-  <option>Feliz</option>
-  <option>Normal</option>
-  <option>Estresada</option>
-  <option>Triste</option>
-</select>
+  <div class="option" onclick="selectOption(this,'Estado emocional','Feliz')">Feliz</div>
+  <div class="option" onclick="selectOption(this,'Estado emocional','Normal')">Normal</div>
+  <div class="option" onclick="selectOption(this,'Estado emocional','Estresada')">Estresada</div>
 
-<!-- GUSTOS -->
-<div class="section-title">🎬 Gustos</div>
+  <input type="hidden" name="Estado emocional">
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<label>¿Cuál es tu película favorita?</label>
-<input type="text" name="Película favorita">
+<!-- 6 -->
+<div class="question">
+  <h2>Película favorita</h2>
+  <input name="Película favorita">
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<label>¿Cuál es tu comida favorita?</label>
-<input type="text" name="Comida favorita">
+<!-- 7 -->
+<div class="question">
+  <h2>Comida favorita</h2>
+  <input name="Comida favorita">
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<!-- CITA -->
-<div class="section-title">☕ Posible cita</div>
+<!-- 8 -->
+<div class="question">
+  <h2>Del 1 al 10, ¿cómo me calificas? (Opcional)</h2>
+  <select name="Calificación opcional">
+    <option>1</option><option>2</option><option>3</option>
+    <option>4</option><option>5</option><option>6</option>
+    <option>7</option><option>8</option><option>9</option>
+    <option>10</option>
+  </select>
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<label>Si saliéramos, ¿qué plan te gustaría más?</label>
-<select name="Plan cita">
-  <option>Café ☕</option>
-  <option>Película 🎬</option>
-  <option>Cenar 🍝</option>
-  <option>Helado 🍦</option>
-  <option>Pasear 🌳</option>
-</select>
+<!-- 9 -->
+<div class="question">
+  <h2>¿Qué plan te gusta más?</h2>
 
-<label>Del 1 al 10, ¿qué tan divertida sería una cita conmigo?</label>
-<select name="Diversion cita">
-  <option>1</option><option>2</option><option>3</option>
-  <option>4</option><option>5</option><option>6</option>
-  <option>7</option><option>8</option><option>9</option>
-  <option>10</option>
-</select>
+  <div class="option" onclick="selectOption(this,'Plan cita','Café')">☕ Café</div>
+  <div class="option" onclick="selectOption(this,'Plan cita','Película')">🎬 Película</div>
+  <div class="option" onclick="selectOption(this,'Plan cita','Cenar')">🍝 Cenar</div>
+  <div class="option" onclick="selectOption(this,'Plan cita','Pasear')">🌳 Pasear</div>
 
-<label>Del 1 al 10, ¿qué probabilidad hay de salir conmigo?</label>
-<select name="Probabilidad cita">
-  <option>1</option><option>2</option><option>3</option>
-  <option>4</option><option>5</option><option>6</option>
-  <option>7</option><option>8</option><option>9</option>
-  <option>10</option>
-</select>
+  <input type="hidden" name="Plan cita">
+  <button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
 
-<!-- MENSAJE -->
-<div class="section-title">💌 Mensaje final</div>
+<!-- 10 -->
+<div class="question">
+  <h2>¿Te gustaría dejar un mensaje?</h2>
+  <textarea name="Mensaje" rows="4"></textarea>
+  <button type="submit" class="btn">Enviar 💕</button>
+</div>
 
-<label>Si quieres dejarme un mensaje</label>
-<textarea name="Mensaje" rows="5" placeholder="Escribe algo bonito..."></textarea>
-
-<button type="submit">Enviar 💕</button>
-
+</div>
 </form>
 
-<div class="footer">
-Hecho con intención de conocerte ✨
-</div>
-
-</div>
-
 <script>
-const sound = document.getElementById("sound");
+let index = 0;
+const steps = document.querySelectorAll(".question");
+const bar = document.getElementById("bar");
 
-document.querySelectorAll("input, select, textarea").forEach(el=>{
-  el.addEventListener("focus", ()=>{
-    sound.currentTime = 0;
-    sound.play().catch(()=>{});
-  });
-});
+function next(){
+  steps[index].classList.remove("active");
+  index++;
+  steps[index].classList.add("active");
 
-document.querySelector("form").addEventListener("submit", ()=>{
-  alert("Gracias por responder 💕");
-});
+  let progress = (index/(steps.length-1))*100;
+  bar.style.width = progress + "%";
+}
+
+function selectOption(el,name,value){
+  document.querySelector([name="${name}"]).value = value;
+  el.parentElement.querySelectorAll(".option").forEach(o=>o.style.background="rgba(255,255,255,0.2)");
+  el.style.background="white";
+  el.style.color="#E1306C";
+}
+
+/* HEARTS */
+setInterval(()=>{
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="❤️";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (10+Math.random()*20)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},400);
 </script>
 
 </body>
