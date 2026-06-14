@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+[12:12 a. m., 14/6/2026] Max: <!-- STEP FINAL -->
+<div class="step">
+<h2>Última pregunta 💌</h2>
+
+<textarea name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+<button type="submit">Enviar 💖</button>
+</div>
+[12:17 a. m., 14/6/2026] Max: <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -25,8 +33,8 @@ padding:30px;
 border-radius:20px;
 width:90%;
 max-width:450px;
-box-shadow:0 10px 40px rgba(0,0,0,0.5);
 text-align:center;
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
 position:relative;
 }
 
@@ -88,20 +96,19 @@ font-size:12px;
 
 <body>
 
-<!-- AUDIO (NO autoplay por reglas del navegador) -->
 <audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b1f0.mp3?filename=soft-love-ambient-110397.mp3" type="audio/mp3">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b1f0.mp3?filename=soft-love-ambient-110397.mp3">
 </audio>
 
 <div class="card">
 
 <div class="music-btn" onclick="toggleMusic()">🎵 Música</div>
 
-<form action="https://formspree.io/f/mjgdjgkz" method="POST">
+<form action="TU_LINK_FORMSPREE" method="POST">
 
 <!-- STEP 1 -->
 <div class="step active">
-<h2>Hola Jacqueline 💖</h2>
+<h2>Hola Yaquelin 💖</h2>
 <p>Te hice algo especial para conocerte mejor</p>
 <button type="button" onclick="next()">Comenzar</button>
 </div>
@@ -164,12 +171,10 @@ font-size:12px;
 <button type="button" onclick="next()">Siguiente</button>
 </div>
 
-<!-- STEP FINAL -->
+<!-- STEP 9 -->
 <div class="step">
 <h2>Última pregunta 💌</h2>
-
-<textarea name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
-
+<textarea name="mensaje" placeholder="Escribe aquí..." required></textarea>
 <button type="submit">Enviar 💖</button>
 </div>
 
@@ -184,10 +189,25 @@ const steps = document.querySelectorAll(".step");
 function next(){
 steps[current].classList.remove("active");
 current++;
+if(current < steps.length){
 steps[current].classList.add("active");
-playSound();
+}
 }
 
-// sonido suave al avanzar
-function playSound(){
-const audio = new
+// música
+let playing = false;
+const music = document.getElementById("music");
+
+function toggleMusic(){
+if(!playing){
+music.play();
+playing = true;
+}else{
+music.pause();
+playing = false;
+}
+}
+</script>
+
+</body>
+</html>
