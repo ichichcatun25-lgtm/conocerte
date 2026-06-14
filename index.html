@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Match 💕 Yaquelin</title>
+<title>Yaquelin 💕 Encuesta</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
@@ -11,224 +11,213 @@
 body{
 margin:0;
 font-family:Poppins;
-background:linear-gradient(-45deg,#833AB4,#FD1D1D,#F77737,#405DE6);
 height:100vh;
 overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
+background:linear-gradient(-45deg,#833AB4,#FD1D1D,#F77737,#405DE6);
+background-size:400% 400%;
+animation:bg 12s infinite;
 }
 
-/* TINDER CARD */
-.card{
-width:340px;
-height:520px;
-background:white;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-position:absolute;
-overflow:hidden;
-display:flex;
-flex-direction:column;
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
-.card img{
-width:100%;
-height:65%;
-object-fit:cover;
-}
-
-.info{
-padding:15px;
-}
-
-.buttons{
-display:flex;
-justify-content:space-around;
-padding:10px;
-}
-
-button{
-border:none;
-padding:15px;
-border-radius:50%;
-cursor:pointer;
-font-size:18px;
-}
-
-.no{background:#ff4d4d;color:white;}
-.yes{background:#4CAF50;color:white;}
-
-/* CHAT IG */
-.chat{
-display:none;
-width:360px;
-height:600px;
-background:#fff;
-border-radius:20px;
-overflow:hidden;
-flex-direction:column;
-}
-
-.header{
-background:#C13584;
+.container{
+width:90%;
+max-width:500px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(18px);
+border-radius:25px;
+padding:25px;
 color:white;
+text-align:center;
+}
+
+.question{display:none;}
+.question.active{display:block;}
+
+.btn{
+margin-top:15px;
 padding:12px;
-text-align:center;
-font-weight:bold;
-}
-
-.messages{
-flex:1;
-padding:10px;
-overflow:auto;
-background:#fafafa;
-}
-
-.msg{
-max-width:75%;
-padding:10px;
-margin:5px;
-border-radius:15px;
-font-size:14px;
-}
-
-.me{
-background:#DCF8C6;
-margin-left:auto;
-}
-
-.her{
-background:white;
-border:1px solid #eee;
-}
-
-/* MATCH SCREEN */
-.match{
-display:none;
-color:white;
-text-align:center;
-}
-
-.match h1{
-font-size:45px;
-}
-
-.start{
-padding:15px 25px;
+width:100%;
 border:none;
-border-radius:20px;
+border-radius:15px;
 background:white;
 color:#E1306C;
-font-weight:bold;
+font-weight:700;
 cursor:pointer;
-margin-top:10px;
+}
+
+.option{
+display:block;
+background:rgba(255,255,255,0.2);
+padding:12px;
+margin:8px 0;
+border-radius:12px;
+cursor:pointer;
+}
+
+input[type="radio"]{
+display:none;
+}
+
+label{
+display:block;
+cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- FORM HIDDEN -->
-<form id="form" action="https://formspree.io/f/mjgdjgkz" method="POST" style="display:none;">
-<input name="Nombre" id="nombre">
-<input name="Estado" id="estado">
-<input name="Interes" id="interes">
-<input name="Resultado" id="resultado">
+<form id="form" action="https://formspree.io/f/mjgdjgkz" method="POST">
+
+<div class="container">
+
+<!-- 1 -->
+<div class="question active">
+<h2>✨ Hola Yaquelin 💕</h2>
+<p>Encuesta rápida para conocerte</p>
+<button type="button" class="btn" onclick="next()">Comenzar</button>
+</div>
+
+<!-- 2 -->
+<div class="question">
+<h3>¿Cómo te llamas?</h3>
+<input name="Nombre" required>
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 3 -->
+<div class="question">
+<h3>¿Cuántos años tienes?</h3>
+<input name="Edad" type="number" required>
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 4 ESTADO SENTIMENTAL (ARREGLADO) -->
+<div class="question">
+<h3>Estado sentimental</h3>
+
+<label class="option">
+<input type="radio" name="Estado sentimental" value="Soltera" required>
+Soltera
+</label>
+
+<label class="option">
+<input type="radio" name="Estado sentimental" value="En una relación">
+En una relación
+</label>
+
+<label class="option">
+<input type="radio" name="Estado sentimental" value="Complicado">
+Es complicado
+</label>
+
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 5 ESTADO EMOCIONAL (ARREGLADO) -->
+<div class="question">
+<h3>Estado emocional</h3>
+
+<label class="option">
+<input type="radio" name="Estado emocional" value="Feliz" required>
+Feliz
+</label>
+
+<label class="option">
+<input type="radio" name="Estado emocional" value="Normal">
+Normal
+</label>
+
+<label class="option">
+<input type="radio" name="Estado emocional" value="Estresada">
+Estresada
+</label>
+
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 6 -->
+<div class="question">
+<h3>Película favorita</h3>
+<input name="Película favorita">
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 7 -->
+<div class="question">
+<h3>Comida favorita</h3>
+<input name="Comida favorita">
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 8 CALIFICACIÓN OPCIONAL -->
+<div class="question">
+<h3>Del 1 al 10, ¿cómo me calificas? (Opcional)</h3>
+
+<select name="Calificación">
+<option>1</option><option>2</option><option>3</option>
+<option>4</option><option>5</option><option>6</option>
+<option>7</option><option>8</option><option>9</option><option>10</option>
+</select>
+
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 9 PLAN DE CITA (ARREGLADO) -->
+<div class="question">
+<h3>¿Qué plan te gustaría?</h3>
+
+<label class="option">
+<input type="radio" name="Plan cita" value="Café" required>
+☕ Café
+</label>
+
+<label class="option">
+<input type="radio" name="Plan cita" value="Película">
+🎬 Película
+</label>
+
+<label class="option">
+<input type="radio" name="Plan cita" value="Cenar">
+🍝 Cenar
+</label>
+
+<label class="option">
+<input type="radio" name="Plan cita" value="Pasear">
+🌳 Pasear
+</label>
+
+<button type="button" class="btn" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 10 -->
+<div class="question">
+<h3>Mensaje final 💌</h3>
+<textarea name="Mensaje" rows="4"></textarea>
+<button class="btn" type="submit">Enviar 💕</button>
+</div>
+
+</div>
+
 </form>
 
-<!-- TINDER -->
-<div class="card" id="tinder">
-<img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e">
-<div class="info">
-<h2>💘 Yaquelin</h2>
-<p>¿Te gustaría conocerlo?</p>
-</div>
-<div class="buttons">
-<button class="no" onclick="swipe(false)">✖️</button>
-<button class="yes" onclick="swipe(true)">❤️</button>
-</div>
-</div>
-
-<!-- MATCH -->
-<div class="match" id="match">
-<h1>💘 MATCH!</h1>
-<p>Se gustaron mutuamente</p>
-<button class="start" onclick="startChat()">Continuar 💬</button>
-</div>
-
-<!-- CHAT -->
-<div class="chat" id="chat">
-<div class="header">Instagram DM 💬</div>
-<div class="messages" id="messages"></div>
-</div>
-
 <script>
+let i=0;
+const q=document.querySelectorAll(".question");
 
-let state = {
-liked:false,
-estado:"",
-interes:""
-};
-
-function swipe(like){
-state.liked = like;
-
-document.getElementById("tinder").style.display="none";
-
-if(like){
-document.getElementById("match").style.display="block";
-}else{
-alert("Tal vez en otro momento 😅");
+function next(){
+q[i].classList.remove("active");
+i++;
+q[i].classList.add("active");
 }
-}
-
-function startChat(){
-document.getElementById("match").style.display="none";
-document.getElementById("chat").style.display="flex";
-
-let m = document.getElementById("messages");
-
-function add(text,cls){
-let d = document.createElement("div");
-d.className="msg "+cls;
-d.innerText=text;
-m.appendChild(d);
-m.scrollTop=m.scrollHeight;
-}
-
-setTimeout(()=>add("Hola Yaquelin 👋","her"),1000);
-setTimeout(()=>add("Me gustó conocerte 💕","me"),2000);
-setTimeout(()=>add("¿Qué prefieres hacer en una cita? ☕🎬","her"),3000);
-
-setTimeout(()=>{
-add("☕ Café","me");
-state.interes="Café";
-},4000);
-
-setTimeout(()=>{
-if(state.interes=="Café"){
-add("Me encanta el café también 😍","her");
-add("Se siente más natural conocerse así","her");
-state.estado="conexion alta";
-}else{
-add("Interesante elección 😏","her");
-state.estado="conexion media";
-}
-sendForm();
-},6000);
-
-}
-
-function sendForm(){
-document.getElementById("nombre").value="Yaquelin";
-document.getElementById("estado").value=state.estado;
-document.getElementById("interes").value=state.interes;
-document.getElementById("resultado").value=state.liked?"MATCH":"NO MATCH";
-
-document.getElementById("form").submit();
-}
-
 </script>
 
 </body>
