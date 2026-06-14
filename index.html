@@ -1,212 +1,233 @@
-[12:12 a. m., 14/6/2026] Max: <!-- STEP FINAL -->
-<div class="step">
-<h2>Última pregunta 💌</h2>
-
-<textarea name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
-
-<button type="submit">Enviar 💖</button>
-</div>
-[12:17 a. m., 14/6/2026] Max: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conociéndote 💖</title>
+<title>Hola Yaquelin 💕</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
 body{
-margin:0;
-font-family: Arial;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background: radial-gradient(circle at top,#1b1b2f,#16213e,#0f3460);
-color:white;
-overflow:hidden;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:linear-gradient(-45deg,#833AB4,#FD1D1D,#F77737,#405DE6);
+  background-size:400% 400%;
+  animation:move 12s ease infinite;
 }
 
-.card{
-background: rgba(255,255,255,0.08);
-backdrop-filter: blur(15px);
-padding:30px;
-border-radius:20px;
-width:90%;
-max-width:450px;
-text-align:center;
-box-shadow:0 10px 40px rgba(0,0,0,0.5);
-position:relative;
+@keyframes move{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
-h2{
-margin-bottom:15px;
+.container{
+  width:100%;
+  max-width:600px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(18px);
+  border-radius:30px;
+  padding:30px;
+  color:white;
+  box-shadow:0 10px 40px rgba(0,0,0,0.25);
 }
 
-input,select,textarea{
-width:100%;
-padding:12px;
-margin-top:10px;
-border:none;
-border-radius:10px;
-outline:none;
+h1{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:14px;
+  opacity:0.95;
+  margin-bottom:10px;
+}
+
+.welcome{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:6px;
+  font-weight:600;
+}
+
+input, select, textarea{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  outline:none;
+  font-size:14px;
+}
+
+textarea{
+  resize:none;
 }
 
 button{
-margin-top:15px;
-padding:12px;
-width:100%;
-border:none;
-border-radius:12px;
-background:#ff4d6d;
-color:white;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
+  width:100%;
+  margin-top:20px;
+  padding:14px;
+  border:none;
+  border-radius:15px;
+  background:white;
+  color:#E1306C;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 button:hover{
-transform:scale(1.05);
+  transform:scale(1.03);
 }
 
-.step{
-display:none;
-opacity:0;
-transform:translateY(20px);
-transition:0.5s;
+.section-title{
+  margin-top:20px;
+  font-weight:700;
+  font-size:16px;
+  color:#fff;
+  border-left:4px solid white;
+  padding-left:10px;
 }
 
-.active{
-display:block;
-opacity:1;
-transform:translateY(0);
-}
-
-.music-btn{
-position:absolute;
-top:10px;
-right:10px;
-background:#ffffff22;
-padding:8px;
-border-radius:10px;
-cursor:pointer;
-font-size:12px;
+.footer{
+  text-align:center;
+  margin-top:15px;
+  font-size:12px;
+  opacity:0.8;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b1f0.mp3?filename=soft-love-ambient-110397.mp3">
-</audio>
+<div class="container">
 
-<div class="card">
+<!-- SONIDO -->
+<audio id="sound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
-<div class="music-btn" onclick="toggleMusic()">🎵 Música</div>
-
-<form action="TU_LINK_FORMSPREE" method="POST">
-
-<!-- STEP 1 -->
-<div class="step active">
-<h2>Hola Yaquelin 💖</h2>
-<p>Te hice algo especial para conocerte mejor</p>
-<button type="button" onclick="next()">Comenzar</button>
+<div class="welcome">
+<h1>✨ Hola, Yaquelin 💕</h1>
+<p>Bienvenida a esta pequeña encuesta hecha solo para conocerte un poquito más.</p>
+<p>No es nada serio, solo algo divertido y diferente ✨</p>
+<p>Gracias por estar aquí 💌</p>
 </div>
 
-<!-- STEP 2 -->
-<div class="step">
-<h2>¿Cómo te llamas?</h2>
-<input name="nombre" required>
-<button type="button" onclick="next()">Siguiente</button>
-</div>
+<form action="https://formspree.io/f/mjgdjgkz" method="POST">
 
-<!-- STEP 3 -->
-<div class="step">
-<h2>¿Cuántos años tienes?</h2>
-<input name="edad" type="number">
-<button type="button" onclick="next()">Siguiente</button>
-</div>
+<!-- SOBRE ELLA -->
+<div class="section-title">🌸 Sobre ti</div>
 
-<!-- STEP 4 -->
-<div class="step">
-<h2>¿Cuál es tu película favorita?</h2>
-<input name="pelicula">
-<button type="button" onclick="next()">Siguiente</button>
-</div>
+<label>¿Cómo te llamas?</label>
+<input type="text" name="Nombre" required>
 
-<!-- STEP 5 -->
-<div class="step">
-<h2>¿Qué comida te gusta?</h2>
-<input name="comida">
-<button type="button" onclick="next()">Siguiente</button>
-</div>
+<label>¿Cuántos años tienes?</label>
+<input type="number" name="Edad" required>
 
-<!-- STEP 6 -->
-<div class="step">
-<h2>¿Cuál es tu situación sentimental?</h2>
-<select name="estado">
-<option>Soltera</option>
-<option>En una relación</option>
-<option>Comprometida</option>
-<option>Casada</option>
+<label>¿Cuál es tu estado sentimental?</label>
+<select name="Estado sentimental">
+  <option>Soltera</option>
+  <option>En una relación</option>
+  <option>Comprometida</option>
+  <option>Casada</option>
+  <option>Divorciada</option>
+  <option>Es complicado</option>
 </select>
-<button type="button" onclick="next()">Siguiente</button>
-</div>
 
-<!-- STEP 7 -->
-<div class="step">
-<h2>Del 1 al 10, ¿qué me das? 😅</h2>
-<input name="calificacion" type="number">
-<button type="button" onclick="next()">Siguiente</button>
-</div>
+<!-- PERSONALIDAD -->
+<div class="section-title">🌷 Personalidad</div>
 
-<!-- STEP 8 -->
-<div class="step">
-<h2>¿Quieres seguir hablando conmigo?</h2>
-<select name="seguir">
-<option>Sí 💖</option>
-<option>Tal vez 🤔</option>
-<option>Necesito conocerte más 😅</option>
+<label>¿Cómo te has sentido últimamente?</label>
+<select name="Estado emocional">
+  <option>Muy feliz</option>
+  <option>Feliz</option>
+  <option>Normal</option>
+  <option>Estresada</option>
+  <option>Triste</option>
 </select>
-<button type="button" onclick="next()">Siguiente</button>
-</div>
 
-<!-- STEP 9 -->
-<div class="step">
-<h2>Última pregunta 💌</h2>
-<textarea name="mensaje" placeholder="Escribe aquí..." required></textarea>
-<button type="submit">Enviar 💖</button>
-</div>
+<!-- GUSTOS -->
+<div class="section-title">🎬 Gustos</div>
+
+<label>¿Cuál es tu película favorita?</label>
+<input type="text" name="Película favorita">
+
+<label>¿Cuál es tu comida favorita?</label>
+<input type="text" name="Comida favorita">
+
+<!-- CITA -->
+<div class="section-title">☕ Posible cita</div>
+
+<label>Si saliéramos, ¿qué plan te gustaría más?</label>
+<select name="Plan cita">
+  <option>Café ☕</option>
+  <option>Película 🎬</option>
+  <option>Cenar 🍝</option>
+  <option>Helado 🍦</option>
+  <option>Pasear 🌳</option>
+</select>
+
+<label>Del 1 al 10, ¿qué tan divertida sería una cita conmigo?</label>
+<select name="Diversion cita">
+  <option>1</option><option>2</option><option>3</option>
+  <option>4</option><option>5</option><option>6</option>
+  <option>7</option><option>8</option><option>9</option>
+  <option>10</option>
+</select>
+
+<label>Del 1 al 10, ¿qué probabilidad hay de salir conmigo?</label>
+<select name="Probabilidad cita">
+  <option>1</option><option>2</option><option>3</option>
+  <option>4</option><option>5</option><option>6</option>
+  <option>7</option><option>8</option><option>9</option>
+  <option>10</option>
+</select>
+
+<!-- MENSAJE -->
+<div class="section-title">💌 Mensaje final</div>
+
+<label>Si quieres dejarme un mensaje</label>
+<textarea name="Mensaje" rows="5" placeholder="Escribe algo bonito..."></textarea>
+
+<button type="submit">Enviar 💕</button>
 
 </form>
+
+<div class="footer">
+Hecho con intención de conocerte ✨
+</div>
 
 </div>
 
 <script>
-let current = 0;
-const steps = document.querySelectorAll(".step");
+const sound = document.getElementById("sound");
 
-function next(){
-steps[current].classList.remove("active");
-current++;
-if(current < steps.length){
-steps[current].classList.add("active");
-}
-}
+document.querySelectorAll("input, select, textarea").forEach(el=>{
+  el.addEventListener("focus", ()=>{
+    sound.currentTime = 0;
+    sound.play().catch(()=>{});
+  });
+});
 
-// música
-let playing = false;
-const music = document.getElementById("music");
-
-function toggleMusic(){
-if(!playing){
-music.play();
-playing = true;
-}else{
-music.pause();
-playing = false;
-}
-}
+document.querySelector("form").addEventListener("submit", ()=>{
+  alert("Gracias por responder 💕");
+});
 </script>
 
 </body>
