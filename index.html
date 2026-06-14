@@ -3,46 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conociéndote</title>
+<title>Conociéndote 💖</title>
 
 <style>
 body{
-font-family: Arial;
-background: linear-gradient(135deg,#ff4d6d,#ff758f);
 margin:0;
+font-family: Arial;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+background: linear-gradient(120deg,#1f1c2c,#928dab,#ff6a88,#ff99ac);
+background-size:400% 400%;
+animation: bg 10s ease infinite;
 color:white;
 }
 
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
 .container{
-background: rgba(255,255,255,0.15);
+background: rgba(0,0,0,0.35);
+backdrop-filter: blur(10px);
 padding:25px;
 border-radius:20px;
 width:90%;
-max-width:500px;
+max-width:450px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+h2{
+margin-bottom:15px;
 }
 
 input,select,textarea{
 width:100%;
-padding:10px;
+padding:12px;
 margin-top:10px;
 border:none;
 border-radius:10px;
+outline:none;
 }
 
 button{
 margin-top:15px;
-padding:10px;
+padding:12px;
 width:100%;
 border:none;
 border-radius:10px;
-background:white;
+background:#ffffff;
 color:#ff4d6d;
 font-weight:bold;
 cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.step{
+display:none;
+animation: fade 0.4s ease;
+}
+
+.active{
+display:block;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
@@ -51,43 +86,95 @@ cursor:pointer;
 
 <div class="container">
 
-<h2>Hola Jacqueline 😊</h2>
-<p>Me gustaría conocerte un poco más 💖</p>
-
+<!-- FORM -->
 <form action="https://formspree.io/f/mjgdjgkz" method="POST">
 
-<input name="nombre" placeholder="¿Cómo te llamas?" required>
+<!-- 1 -->
+<div class="step active">
+<h2>Hola Jacqueline 😊</h2>
+<p>Quiero conocerte un poco mejor 💖</p>
+<button type="button" onclick="next()">Comenzar</button>
+</div>
 
-<input name="edad" placeholder="Edad" type="number">
+<!-- 2 -->
+<div class="step">
+<h2>¿Cómo te llamas?</h2>
+<input name="nombre" required>
+<button type="button" onclick="next()">Siguiente</button>
+</div>
 
-<input name="pelicula" placeholder="Película favorita">
+<!-- 3 -->
+<div class="step">
+<h2>¿Cuántos años tienes?</h2>
+<input name="edad" type="number">
+<button type="button" onclick="next()">Siguiente</button>
+</div>
 
-<input name="comida" placeholder="Comida favorita">
+<!-- 4 -->
+<div class="step">
+<h2>¿Cuál es tu película favorita?</h2>
+<input name="pelicula">
+<button type="button" onclick="next()">Siguiente</button>
+</div>
 
+<!-- 5 -->
+<div class="step">
+<h2>¿Qué comida te gusta?</h2>
+<input name="comida">
+<button type="button" onclick="next()">Siguiente</button>
+</div>
+
+<!-- 6 -->
+<div class="step">
+<h2>¿Cuál es tu situación sentimental?</h2>
 <select name="estado">
 <option>Soltera</option>
 <option>En una relación</option>
 <option>Comprometida</option>
 <option>Casada</option>
 </select>
+<button type="button" onclick="next()">Siguiente</button>
+</div>
 
-<input name="calificacion" placeholder="¿Qué me das del 1 al 10? (opcional)">
+<!-- 7 -->
+<div class="step">
+<h2>Del 1 al 10, ¿qué me das? 😅 (opcional)</h2>
+<input name="calificacion" type="number" min="1" max="10">
+<button type="button" onclick="next()">Siguiente</button>
+</div>
 
+<!-- 8 -->
+<div class="step">
+<h2>¿Te gustaría seguir hablando conmigo?</h2>
 <select name="seguir">
 <option>Sí 😊</option>
 <option>Tal vez 🤔</option>
 <option>Necesito conocerte más 😅</option>
 </select>
+<button type="button" onclick="next()">Siguiente</button>
+</div>
 
-<textarea name="mensaje" placeholder="Mensaje opcional"></textarea>
-
-<button type="submit">Enviar</button>
+<!-- 9 -->
+<div class="step">
+<h2>¿Quieres dejarme un mensaje?</h2>
+textarea name="mensaje"></textarea>
+<button type="submit">Enviar 💖</button>
+</div>
 
 </form>
 
-<p>Jacqueline, me gustó conocerte 💖</p>
-
 </div>
+
+<script>
+let current=0;
+const steps=document.querySelectorAll(".step");
+
+function next(){
+steps[current].classList.remove("active");
+current++;
+steps[current].classList.add("active");
+}
+</script>
 
 </body>
 </html>
